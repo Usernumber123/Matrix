@@ -1,3 +1,4 @@
+import pojo.Matrix;
 
 public class MatrixWorker implements IMatrixWorker {
     @Override
@@ -12,9 +13,8 @@ public class MatrixWorker implements IMatrixWorker {
 
     @Override
     public boolean haveSameDimension(double[][] m1, double[][] m2) {
-        if (m1.length == m2.length && m1[0].length == m2[0].length) {
-            return true;
-        } else return false;
+        return (m1.length == m2.length && m1[0].length == m2[0].length);
+
     }
 
     @Override
@@ -61,6 +61,8 @@ public class MatrixWorker implements IMatrixWorker {
         return mResult;
     }
 
+
+
     public double determinant(double m1[][]) {
         if (m1.length == m1[0].length) {
             double res;
@@ -93,5 +95,28 @@ public class MatrixWorker implements IMatrixWorker {
         }
         return m;
     }
+    @Override
+    public void print(Matrix m) {
+        print(m.getMat());
+    }
 
+    @Override
+    public boolean haveSameDimension(Matrix m1, Matrix m2) {
+        return  haveSameDimension(m1.getMat(),m2.getMat());
+    }
+
+    @Override
+    public double[][] add(Matrix m1, Matrix m2) {
+        return add(m1.getMat(), m2.getMat());
+    }
+
+    @Override
+    public double[][] subtract(Matrix m1, Matrix m2) {
+        return subtract(m1.getMat(), m2.getMat());
+    }
+
+    @Override
+    public double[][] multiply(Matrix m1, Matrix m2) {
+        return multiply(m1.getMat(), m2.getMat());
+    }
 }
