@@ -61,33 +61,33 @@ public class MatrixWorker implements IMatrixWorker {
         return mResult;
     }
 
-    public double determinant(double A[][]) {
-        if (A.length == A[0].length) {
+    public double determinant(double m1[][]) {
+        if (m1.length == m1[0].length) {
             double res;
-            if (A.length == 1) res = A[0][0];
-            else if (A.length == 2) res = A[0][0] * A[1][1] - A[1][0] * A[0][1];
+            if (m1.length == 1) res = m1[0][0];
+            else if (m1.length == 2) res = m1[0][0] * m1[1][1] - m1[1][0] * m1[0][1];
             else {
                 res = 0;
-                for (int j1 = 0; j1 < A.length; j1++) {
-                    double m[][] = generateArray(A, j1);
-                    res += Math.pow(-1.0, 1.0 + j1 + 1.0) * A[0][j1] * determinant(m);
+                for (int j1 = 0; j1 < m1.length; j1++) {
+                    double m[][] = generateArray(m1, j1);
+                    res += Math.pow(-1.0, 1.0 + j1 + 1.0) * m1[0][j1] * determinant(m);
                 }
             }
             return res;
         } else   throw new IllegalArgumentException();
     }
 
-    private double[][] generateArray(double A[][], int j1) {
-        double m[][] = m = new double[A.length - 1][];
-        for (int k = 0; k < (A.length - 1); k++)
-            m[k] = new double[A.length - 1];
+    private double[][] generateArray(double m1[][], int j1) {
+        double m[][]  = new double[m1.length - 1][];
+        for (int k = 0; k < (m1.length - 1); k++)
+            m[k] = new double[m1.length - 1];
 
-        for (int i = 1; i < A.length; i++) {
+        for (int i = 1; i < m1.length; i++) {
             int j2 = 0;
-            for (int j = 0; j < A.length; j++) {
+            for (int j = 0; j < m1.length; j++) {
                 if (j == j1)
                     continue;
-                m[i - 1][j2] = A[i][j];
+                m[i - 1][j2] = m1[i][j];
                 j2++;
             }
         }
