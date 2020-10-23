@@ -2,25 +2,25 @@ package pojo;
 
 public class Matrix {
     private double mat[][];
-    private int matrixRow;
-    private int matrixColumn;
+    private int quantityRows;
+    private int quantityColumns;
 
     public Matrix(double[][] mat) {
         this.mat = mat;
-        this.matrixRow = mat[0].length;
-        this.matrixColumn = mat.length;
+        this.quantityRows = mat[0].length;
+        this.quantityColumns = mat.length;
     }
 
     public double[][] getMat() {
         return mat;
     }
 
-    public int getMatrixRow() {
-        return matrixRow;
+    public int getQuantityRows() {
+        return quantityRows;
     }
 
-    public int getMatrixColumn() {
-        return matrixColumn;
+    public int getQuantityColumns() {
+        return quantityColumns;
     }
 
     @Override
@@ -35,16 +35,16 @@ public class Matrix {
                 }
             }
         } else return false;
-        return matrixRow == matrix.matrixRow &&
-                matrixColumn == matrix.matrixColumn;
+        return quantityRows == matrix.quantityRows &&
+                quantityColumns == matrix.quantityColumns;
 
     }
 
     @Override
     public int hashCode() {
         int result = 17;
-        result = 31 * result + this.matrixRow;
-        result = 31 * result + this.matrixColumn;
+        result = 31 * result + this.quantityRows;
+        result = 31 * result + this.quantityColumns;
         result = 31 * result + mat.hashCode();
         return result;
     }

@@ -2,65 +2,64 @@ import pojo.Matrix;
 
 public class MatrixWorker implements IMatrixWorker {
     @Override
-    public void print(double[][] m) {
-        for (int i = 0; i < m.length; i++) {
-            for (int j = 0; j < m[0].length; j++) {
-                System.out.print(m[i][j] + " ");
+    public void print(Matrix m) {
+        for (int i = 0; i < m.getMat().length; i++) {
+            for (int j = 0; j < m.getMat()[0].length; j++) {
+                System.out.print(m.getMat()[i][j] + " ");
             }
             System.out.println();
         }
     }
 
     @Override
-    public boolean haveSameDimension(double[][] m1, double[][] m2) {
-        return (m1.length == m2.length && m1[0].length == m2[0].length);
+    public boolean haveSameDimension(Matrix m1, Matrix m2) {
+        return (m1.getMat().length == m2.getMat().length && m1.getMat()[0].length == m2.getMat()[0].length);
 
     }
 
     @Override
-    public double[][] add(double[][] m1, double[][] m2) {
-        double[][] mResult = new double[m1.length][m1[0].length];
+    public double[][] add(Matrix m1, Matrix m2) {
+        double[][] mResult = new double[m1.getMat().length][m1.getMat()[0].length];
         if (haveSameDimension(m1, m2)) {
-            for (int i = 0; i < m1.length; i++) {
-                for (int j = 0; j < m1[0].length; j++) {
-                    mResult[i][j] = m1[i][j] + m2[i][j];
+            for (int i = 0; i < m1.getMat().length; i++) {
+                for (int j = 0; j < m1.getMat()[0].length; j++) {
+                    mResult[i][j] = m1.getMat()[i][j] + m2.getMat()[i][j];
                 }
             }
             return mResult;
-        } else   throw new IllegalArgumentException();
+        } else throw new IllegalArgumentException();
     }
 
     @Override
-    public double[][] subtract(double[][] m1, double[][] m2) {
-        double[][] mResult = new double[m1.length][m1[0].length];
+    public double[][] subtract(Matrix m1, Matrix m2) {
+        double[][] mResult = new double[m1.getMat().length][m1.getMat()[0].length];
         if (haveSameDimension(m1, m2)) {
-            for (int i = 0; i < m1.length; i++) {
-                for (int j = 0; j < m1[0].length; j++) {
-                    mResult[i][j] = m1[i][j] - m2[i][j];
+            for (int i = 0; i < m1.getMat().length; i++) {
+                for (int j = 0; j < m1.getMat()[0].length; j++) {
+                    mResult[i][j] = m1.getMat()[i][j] - m2.getMat()[i][j];
                 }
             }
             return mResult;
-        } else   throw new IllegalArgumentException();
+        } else throw new IllegalArgumentException();
     }
 
     @Override
-    public double[][] multiply(double[][] m1, double[][] m2) {
-        int m1ColLength = m1[0].length;
-        int m2RowLength = m2.length;
-        if (m1ColLength != m2RowLength)   throw new Error();
-        int mRRowLength = m1.length;
-        int mRColLength = m2[0].length;
+    public double[][] multiply(Matrix m1, Matrix m2) {
+        int m1ColLength = m1.getMat()[0].length;
+        int m2RowLength = m2.getMat().length;
+        if (m1ColLength != m2RowLength) throw new Error();
+        int mRRowLength = m1.getMat().length;
+        int mRColLength = m2.getMat()[0].length;
         double[][] mResult = new double[mRRowLength][mRColLength];
         for (int i = 0; i < mRRowLength; i++) {
             for (int j = 0; j < mRColLength; j++) {
                 for (int k = 0; k < m1ColLength; k++) {
-                    mResult[i][j] += m1[i][k] * m2[k][j];
+                    mResult[i][j] += m1.getMat()[i][k] * m2.getMat()[k][j];
                 }
             }
         }
         return mResult;
     }
-
 
 
     public double determinant(double m1[][]) {
@@ -76,11 +75,11 @@ public class MatrixWorker implements IMatrixWorker {
                 }
             }
             return res;
-        } else   throw new IllegalArgumentException();
+        } else throw new IllegalArgumentException();
     }
 
     private double[][] generateArray(double m1[][], int j1) {
-        double m[][]  = new double[m1.length - 1][];
+        double m[][] = new double[m1.length - 1][];
         for (int k = 0; k < (m1.length - 1); k++)
             m[k] = new double[m1.length - 1];
 
@@ -95,28 +94,5 @@ public class MatrixWorker implements IMatrixWorker {
         }
         return m;
     }
-    @Override
-    public void print(Matrix m) {
-        print(m.getMat());
-    }
 
-    @Override
-    public boolean haveSameDimension(Matrix m1, Matrix m2) {
-        return  haveSameDimension(m1.getMat(),m2.getMat());
-    }
-
-    @Override
-    public double[][] add(Matrix m1, Matrix m2) {
-        return add(m1.getMat(), m2.getMat());
-    }
-
-    @Override
-    public double[][] subtract(Matrix m1, Matrix m2) {
-        return subtract(m1.getMat(), m2.getMat());
-    }
-
-    @Override
-    public double[][] multiply(Matrix m1, Matrix m2) {
-        return multiply(m1.getMat(), m2.getMat());
-    }
 }
